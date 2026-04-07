@@ -4,156 +4,255 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday Sayang ❤️</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
 
     body {
-      background: linear-gradient(135deg, #89c2ff, #b7dcff, #dceeff);
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe, #93c5fd);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
-      color: #333;
+      padding: 18px;
+      color: #1e293b;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Canvas bintang */
+    #starsCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Glow halaman terakhir */
+    .page7-glow {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(147,197,253,0.35), transparent 70%);
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .page7-glow.active {
+      opacity: 1;
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%,100% { opacity: 0.7; }
+      50% { opacity: 1; }
     }
 
     .container {
       width: 100%;
-      max-width: 700px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 25px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-      overflow: hidden;
+      max-width: 540px;
+      min-height: 680px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 30px;
+      box-shadow: 0 22px 50px rgba(0,0,0,0.15);
       position: relative;
       z-index: 2;
+      overflow: hidden;
     }
 
     .page {
       display: none;
-      padding: 45px 30px;
+      padding: 42px 28px;
       text-align: center;
-      min-height: 580px;
-      animation: fadeIn 0.8s ease;
+      min-height: 680px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      animation: pageFade 0.7s ease;
+      position: relative;
     }
 
     .page.active {
-      display: block;
+      display: flex;
+    }
+
+    @keyframes pageFade {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     h1 {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-      color: #2563eb;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      margin-bottom: 18px;
+      color: #1d4ed8;
+      font-weight: 700;
+      letter-spacing: -0.5px;
     }
 
     h2 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      color: #2563eb;
+      font-size: clamp(1.6rem, 3.5vw, 2rem);
+      margin-bottom: 16px;
+      color: #1e40af;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    h3 {
+      color: #1d4ed8;
+      font-size: 1rem;
+      margin-bottom: 8px;
     }
 
     p {
-      font-size: 1.15rem;
-      line-height: 1.8;
-      margin-bottom: 25px;
+      font-size: clamp(1rem, 2.5vw, 1.08rem);
+      line-height: 1.9;
+      margin-bottom: 22px;
+      color: #334155;
+      max-width: 420px;
     }
 
     .emoji {
-      font-size: 3rem;
-      margin-bottom: 20px;
+      font-size: 3.2rem;
+      margin-bottom: 18px;
+      animation: floatSoft 3.2s ease-in-out infinite;
+    }
+
+    @keyframes floatSoft {
+      0%,100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
     }
 
     button {
-      background: #3b82f6;
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
       color: white;
       border: none;
       padding: 14px 28px;
       font-size: 1rem;
-      border-radius: 14px;
+      font-weight: 600;
+      border-radius: 16px;
       cursor: pointer;
-      transition: 0.3s;
-      margin: 10px 5px 0;
-      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.25);
+      transition: all 0.28s ease;
+      margin: 10px 6px 0;
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
     }
 
     button:hover {
-      background: #2563eb;
-      transform: translateY(-2px);
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 18px 34px rgba(37, 99, 235, 0.35);
+    }
+
+    button:active {
+      transform: scale(0.98);
     }
 
     .small {
-      font-size: 0.95rem;
-      color: #777;
+      font-size: 0.92rem;
+      color: #475569;
       margin-top: 20px;
+      opacity: 0.95;
     }
 
     .heart {
       position: absolute;
-      font-size: 1.4rem;
-      animation: float 6s infinite ease-in-out;
-      opacity: 0.4;
+      font-size: 1.6rem;
+      animation: floatHeart 6s infinite ease-in-out;
+      opacity: 0.35;
+      z-index: 0;
     }
 
-    .heart:nth-child(1) { top: 20px; left: 25px; }
-    .heart:nth-child(2) { top: 50px; right: 30px; }
-    .heart:nth-child(3) { bottom: 40px; left: 35px; }
-    .heart:nth-child(4) { bottom: 30px; right: 35px; }
+    .heart:nth-child(1) { top: 28px; left: 28px; }
+    .heart:nth-child(2) { top: 52px; right: 34px; }
+    .heart:nth-child(3) { bottom: 48px; left: 32px; }
+    .heart:nth-child(4) { bottom: 36px; right: 36px; }
+
+    @keyframes floatHeart {
+      0%,100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(3deg); }
+    }
 
     input {
       outline: none;
+      border: none;
     }
 
     .pin-wrapper {
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin-bottom: 20px;
+      margin: 10px 0 20px;
       flex-wrap: wrap;
     }
 
     .pin-circle {
-      width: 55px;
-      height: 55px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
-      border: 2px solid #93c5fd;
       text-align: center;
-      font-size: 1.4rem;
-      background: #eff6ff;
+      font-size: 1.35rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.75);
       color: #1e3a8a;
-      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.15);
+      border: 1.5px solid rgba(37, 99, 235, 0.15);
+      box-shadow:
+        inset 0 1px 6px rgba(255,255,255,0.25),
+        0 10px 20px rgba(0,0,0,0.08);
+      transition: all 0.25s ease;
     }
 
     .pin-circle:focus {
-      border-color: #2563eb;
-      transform: scale(1.05);
+      border-color: #60a5fa;
+      transform: scale(1.07);
+      box-shadow:
+        0 0 0 6px rgba(147, 197, 253, 0.18),
+        0 10px 22px rgba(37, 99, 235, 0.18);
+      background: rgba(255, 255, 255, 0.95);
     }
 
     .error {
-      color: #d62828;
+      color: #dc2626;
       font-size: 0.95rem;
       min-height: 20px;
       margin-bottom: 10px;
+      font-weight: 500;
     }
 
     .photo-box {
       width: 100%;
-      max-width: 320px;
-      height: 380px;
-      margin: 0 auto 20px;
-      border-radius: 20px;
+      max-width: 340px;
+      height: 420px;
+      margin: 0 auto 24px;
+      border-radius: 26px;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      background: #dbeafe;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+      background: rgba(255,255,255,0.55);
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 3px solid #93c5fd;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .photo-box:hover {
+      transform: translateY(-4px);
     }
 
     .photo-box img {
@@ -164,10 +263,7 @@
 
     #emojiRainContainer {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       pointer-events: none;
       overflow: hidden;
       z-index: 999;
@@ -179,22 +275,7 @@
       font-size: 28px;
       animation: fall linear forwards;
       opacity: 0.9;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
+      filter: drop-shadow(0 8px 14px rgba(255,255,255,0.22));
     }
 
     @keyframes fall {
@@ -203,11 +284,215 @@
         opacity: 0.8;
       }
     }
+
+    .fade-text {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeText 0.8s ease forwards;
+    }
+
+    .fade-text.delay-1 { animation-delay: 0.2s; }
+    .fade-text.delay-2 { animation-delay: 0.4s; }
+    .fade-text.delay-3 { animation-delay: 0.6s; }
+
+    @keyframes fadeText {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .shake {
+      animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      50% { transform: translateX(6px); }
+      75% { transform: translateX(-4px); }
+      100% { transform: translateX(0); }
+    }
+
+    /* Loading screen */
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe, #93c5fd);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #loadingScreen.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-box {
+      text-align: center;
+      background: rgba(255,255,255,0.65);
+      padding: 28px 24px;
+      border-radius: 24px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+      backdrop-filter: blur(12px);
+      max-width: 320px;
+    }
+
+    .loading-heart {
+      font-size: 3rem;
+      animation: pulseHeart 1.4s infinite;
+      margin-bottom: 14px;
+    }
+
+    @keyframes pulseHeart {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    /* Countdown */
+    .countdown-box {
+      margin-top: 10px;
+      background: rgba(255,255,255,0.55);
+      border-radius: 18px;
+      padding: 16px 18px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+      max-width: 320px;
+    }
+
+    #countdownTimer {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    /* Popup lucu */
+    .popup {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.8);
+      background: white;
+      color: #1e3a8a;
+      padding: 12px 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: 0.4s;
+      z-index: 9999;
+      font-weight: 600;
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    #hugText {
+      animation: fadeText 0.6s ease forwards;
+    }
+
+    /* Alasan */
+    #reasonsBox {
+      max-height: 420px;
+      overflow-y: auto;
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255,255,255,0.45);
+      padding: 18px;
+      border-radius: 20px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    #reasonsBox {
+  display: grid;
+  gap: 12px;
+}
+
+.reason-card {
+  background: rgba(255,255,255,0.65);
+  border-radius: 16px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  backdrop-filter: blur(6px);
+  transition: 0.25s;
+}
+
+.reason-card:hover {
+  transform: translateY(-3px);
+}
+
+.reason-number {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 4px;
+}
+
+.reason-text {
+  font-size: 0.95rem;
+}
+
+    @media (max-width: 600px) {
+      .container {
+        max-width: 100%;
+        min-height: 92vh;
+        border-radius: 26px;
+      }
+
+      .page {
+        min-height: 92vh;
+        padding: 34px 22px;
+      }
+
+      .pin-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+
+      .photo-box {
+        max-width: 290px;
+        height: 360px;
+        border-radius: 22px;
+      }
+
+      p {
+        line-height: 1.85;
+      }
+
+      button {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- LAGU -->
+  <!-- Background bintang premium -->
+  <canvas id="starsCanvas"></canvas>
+
+  <!-- Loading Screen -->
+  <div id="loadingScreen">
+    <div class="loading-box">
+      <div class="loading-heart">💙</div>
+      <h2>Loading hadiah spesial buat kamu...</h2>
+      <p>Tunggu bentar ya ganteng 😌</p>
+    </div>
+  </div>
+
+  <!-- Glow halaman terakhir -->
+  <div id="page7Glow" class="page7-glow"></div>
+
+  <!-- Popup lucu -->
+  <div id="popupKiss" class="popup"></div>
+
+  <!-- Lagu -->
   <audio id="bgMusic" loop>
     <source src="lagu.mp3" type="audio/mpeg" />
   </audio>
@@ -218,15 +503,16 @@
     <div class="heart">💕</div>
     <div class="heart">💖</div>
 
+    <!-- PAGE 0 -->
     <section class="page active" id="page0">
-      <div class="emoji">🔐</div>
-      <h1>Private Birthday Access</h1>
-      <p>
+      <div class="emoji fade-text">🔐</div>
+      <h1 class="fade-text delay-1">Private Birthday Access</h1>
+      <p class="fade-text delay-2">
         Website ini cuma buat cowo paling spesial 😜<br>
         Jadi... masukin dulu PIN rahasianya yaa.
       </p>
 
-      <div class="pin-wrapper">
+      <div class="pin-wrapper fade-text delay-2">
         <input type="password" maxlength="1" class="pin-circle" oninput="movePin(this, 0)" />
         <input type="password" maxlength="1" class="pin-circle" oninput="movePin(this, 1)" />
         <input type="password" maxlength="1" class="pin-circle" oninput="movePin(this, 2)" />
@@ -235,116 +521,277 @@
         <input type="password" maxlength="1" class="pin-circle" oninput="movePin(this, 5)" />
       </div>
 
-      <div class="error" id="pinError"></div>
-      <button onclick="checkPin()">Buka hadiah 🎁</button>
-      <p class="small">Note : Tanggal jadian kita! 💙</p>
+      <div class="error fade-text delay-3" id="pinError"></div>
+      <button class="fade-text delay-3" onclick="checkPin()">Buka hadiah 🎁</button>
+      <p class="small fade-text delay-3">Note : Tanggal jadian kita! 💙</p>
     </section>
 
+    <!-- PAGE 1 -->
     <section class="page" id="page1">
-      <div class="emoji">🎂</div>
-      <h1>Happy Birthday Sayangkuuu</h1>
-      <p>
+      <div class="emoji fade-text">🎂</div>
+      <h1 class="fade-text delay-1">Happy Birthday Sayangkuuu</h1>
+      <p class="fade-text delay-2">
         Hari ini bukan hari biasa...<br>
         karena hari ini, manusia paling ganteng, paling nyebelin, paling lucu,
         dan paling aku sayang di dunia lahir 😌❤️
       </p>
-      <button onclick="nextPage(2)">Lanjut dong 👉</button>
+
+      <div class="countdown-box fade-text delay-3">
+        <h3>⏳ Countdown ulang tahun kamu</h3>
+        <p id="countdownTimer">Loading...</p>
+      </div>
+
+      <button class="fade-text delay-3" onclick="nextPage(2)">Lanjut dong 👉</button>
     </section>
 
+    <!-- PAGE 2 -->
     <section class="page" id="page2">
-      <div class="emoji">😎</div>
-      <h2>Selamat ulang tahun yaa ganteng</h2>
-      <p>
+      <div class="emoji fade-text">😎</div>
+      <h2 class="fade-text delay-1">Selamat ulang tahun yaa ganteng</h2>
+      <p class="fade-text delay-2">
         Semoga di umur kamu yang sekarang, kamu makin kuat, makin bahagia,
         makin sukses, dan tentunya... makin cinta sama aku 😏
       </p>
-      <button onclick="nextPage(3)">Masih ada nih 😋</button>
+      <button class="fade-text delay-3" onclick="nextPage(3)">Masih ada nih 😋</button>
     </section>
 
+    <!-- PAGE 3 -->
     <section class="page" id="page3">
-      <div class="emoji">🤏</div>
-      <h2>Pesan penting banget</h2>
-      <p>
+      <div class="emoji fade-text">🤏</div>
+      <h2 class="fade-text delay-1">Pesan penting banget</h2>
+      <p class="fade-text delay-2">
         Makasih ya udah sabar banget ngadepin aku yang kadang random, kadang manja,
         kadang ngeselin, kadang bikin pusing... tapi tetep lucu 😌
       </p>
-      <button onclick="nextPage(4)">Oke lanjut 😆</button>
+      <button class="fade-text delay-3" onclick="nextPage(4)">Oke lanjut 😆</button>
     </section>
 
+    <!-- PAGE 4 -->
     <section class="page" id="page4">
-      <div class="emoji">🚨</div>
-      <h2>Peringatan ulang tahun</h2>
-      <p>
+      <div class="emoji fade-text">🚨</div>
+      <h2 class="fade-text delay-1">Peringatan ulang tahun</h2>
+      <p class="fade-text delay-2">
         Di umur yang baru ini, kamu resmi diwajibkan untuk:
         <br><br>
-        1. Nggak boleh sakit 😡<br>
-        2. Nabung buat jajanin aku tiap hari 😝<br>
-        3. Nggak boleh ninggalin aku 😤<br>
-        4. Wajib sayang aku terus 💋
+        1. Ga boleh sedih😡<br>
+        2. Nabung buat jajanin aku tiap hari😝<br>
+        3. Ga boleh ninggalin aku😤<br>
+        4. Wajib sayang aku terus💋
       </p>
-      <button onclick="nextPage(5)">Saya setuju 😌</button>
+      <button class="fade-text delay-3" onclick="nextPage(5)">Saya setuju 😌</button>
     </section>
 
+    <!-- PAGE 5 -->
     <section class="page" id="page5">
-      <div class="emoji">😂</div>
-      <h2>Fakta menarik</h2>
-      <p>
+      <div class="emoji fade-text">😂</div>
+      <h2 class="fade-text delay-1">Fakta menarik</h2>
+      <p class="fade-text delay-2">
         Dari sekian banyak orang di dunia,
         aku masih heran kenapa yang aku suka malah kamu...<br><br>
         tapi gapapa juga siii, terlanjur sayang juga 😳🤍
       </p>
-      <button onclick="nextPage(6)">Awww 👀</button>
+      <button class="fade-text delay-3" onclick="nextPage(6)">Awww 👀</button>
     </section>
 
+    <!-- PAGE 6 -->
     <section class="page" id="page6">
-      <div class="emoji">💌</div>
-      <h2>Yang paling penting...</h2>
-      <p>
+      <div class="emoji fade-text">💌</div>
+      <h2 class="fade-text delay-1">Yang paling penting...</h2>
+      <p class="fade-text delay-2">
         Semoga semua doa baik kamu dikabulkan satu-satu.
         Semoga jalan kamu dipermudah.
         Semoga hati kamu selalu dijaga.
         Dan semoga aku akan selalu jadi bagian dari banyak bahagia kamu.
       </p>
-      <button onclick="nextPage(7)">Terakhir nih 🥺</button>
+      <button class="fade-text delay-3" onclick="nextPage(7)">Terakhir nih 🥺</button>
     </section>
 
+    <!-- PAGE 7 -->
     <section class="page" id="page7">
-      <div class="emoji">📸</div>
-      <h2>Halaman spesial buat kamu</h2>
-      <div class="photo-box">
+      <div class="emoji fade-text">📸</div>
+      <h2 class="fade-text delay-1">Halaman spesial buat kamu</h2>
+
+      <div class="photo-box fade-text delay-2">
         <img src="fotokita.jpeg" alt="Foto Kita" />
       </div>
-      <p>
+
+      <p class="fade-text delay-2">
         Selamat ulang tahun ya, sayang.<br><br>
         Aku cuma mau kamu tahu...<br>
         kamu itu berharga, kamu itu dicintai, dan kamu itu rumah buat aku.
       </p>
-      <p><strong>I love you more than words can explain 💖</strong></p>
-      <p class="small">— dari aku, yang selalu milih kamu 🤍</p>
+
+      <button class="fade-text delay-3" onclick="hugMe()">Peluk aku🤗</button>
+      <button class="fade-text delay-3" onclick="kissMe()">Kiss aku💋</button>
+      <button class="fade-text delay-3" onclick="nextPage(8)">100 alasan aku sayang kamu💙</button>
+
+      <p id="hugText" class="small fade-text delay-3" style="display:none; margin-top: 14px;">
+        peluk paling erat buat cowo kesayangan aku💙🥺
+      </p>
+
+      <p class="fade-text delay-3"><strong>I love you more than words can explain 💖</strong></p>
+      <p class="small fade-text delay-3">— dari aku, yang selalu milih kamu 🤍</p>
+    </section>
+
+    <!-- PAGE 8 -->
+    <section class="page" id="page8">
+      <div class="emoji fade-text">📖</div>
+      <h2 class="fade-text delay-1">100 alasan aku sayang kamu 💙</h2>
+
+      <div id="reasonsBox" class="fade-text delay-2"></div>
+
+      <button class="fade-text delay-3" onclick="nextPage(7)">Balik lagi 💫</button>
     </section>
   </div>
 
-  <!-- HUJAN EMOJI -->
+  <!-- Hujan emoji -->
   <div id="emojiRainContainer"></div>
 
   <script>
     const correctPin = "260326";
     let rainStarted = false;
 
+    const reasons = [
+  "karena kamu lucu dengan cara kamu sendiri",
+  "karena kamu sabar ngadepin aku",
+  "karena kamu bikin aku ngerasa aman",
+  "karena kamu perhatian walau kadang diem-diem",
+  "karena kamu selalu punya cara bikin aku tenang",
+  "karena kamu bikin hari biasa jadi lebih spesial",
+  "karena kamu punya senyum yang bikin aku lemah",
+  "karena kamu ganteng tanpa harus berusaha keras",
+  "karena kamu bikin aku nyaman jadi diri sendiri",
+  "karena kamu selalu aku tunggu kabarnya",
+  "karena kamu itu rumah buat aku",
+  "karena kamu bikin aku ngerasa dipilih",
+  "karena kamu punya hati yang lembut",
+  "karena kamu nyebelin tapi bikin kangen",
+  "karena kamu bisa bikin aku ketawa di waktu random",
+  "karena kamu ngerti aku lebih dari yang aku kira",
+  "karena kamu selalu punya tempat spesial di hati aku",
+  "karena kamu bikin aku ngerasa dicintai",
+  "karena kamu punya cara ngomong yang bikin tenang",
+  "karena kamu itu sederhana tapi ngena",
+  "karena kamu nggak harus sempurna buat aku sayang",
+  "karena kamu selalu bikin aku pengen stay",
+  "karena kamu bisa jadi tempat cerita aku",
+  "karena kamu itu manis tanpa sadar",
+  "karena kamu selalu bikin aku pengen ngalah",
+  "karena kamu punya aura yang bikin aku nyaman",
+  "karena kamu tuh bikin aku susah marah lama-lama",
+  "karena kamu selalu aku pikirin",
+  "karena kamu bikin aku ngerasa cukup",
+  "karena kamu itu versi favorit aku dari semua orang",
+  "karena kamu punya tatapan yang bikin hati aku aneh",
+  "karena kamu bikin aku belajar sabar",
+  "karena kamu hadir di waktu yang pas",
+  "karena kamu bikin aku percaya sama rasa lagi",
+  "karena kamu itu tempat pulang terbaik",
+  "karena kamu bikin aku ngerasa nggak sendirian",
+  "karena kamu selalu berhasil bikin aku luluh",
+  "karena kamu punya sisi lembut yang aku suka",
+  "karena kamu bikin aku ngerasa spesial",
+  "karena kamu itu orang yang pengen terus aku jagain",
+  "karena kamu bisa bikin suasana hati aku berubah jadi baik",
+  "karena kamu punya cara sendiri buat sayang",
+  "karena kamu bikin aku senyum sendiri",
+  "karena kamu tuh favorit aku banget",
+  "karena kamu itu kombinasi lucu dan ngeselin yang pas",
+  "karena kamu punya vibe yang bikin aku betah",
+  "karena kamu selalu jadi alasan aku excited",
+  "karena kamu bikin aku lebih berani buat sayang",
+  "karena kamu selalu berhasil bikin aku luluh walau lagi kesel",
+  "karena kamu punya suara yang aku suka",
+  "karena kamu tuh bikin aku pengen terus ada",
+  "karena kamu selalu bikin aku ngerasa berarti",
+  "karena kamu nggak pernah jadi orang biasa buat aku",
+  "karena kamu bikin aku pengen terus tumbuh bareng",
+  "karena kamu itu orang yang paling pengen aku bahagiain",
+  "karena kamu punya cara ngelihat dunia yang aku suka",
+  "karena kamu bisa bikin hal kecil terasa besar",
+  "karena kamu itu satu dari sedikit hal yang aku syukuri banget",
+  "karena kamu bikin aku ngerti arti nyaman",
+  "karena kamu selalu punya tempat di pikiran aku",
+  "karena kamu tuh bikin hati aku betah",
+  "karena kamu bisa jadi tenang di tengah ributnya hidup",
+  "karena kamu bikin aku ngerasa diterima",
+  "karena kamu selalu bikin aku pengen cerita banyak hal",
+  "karena kamu tuh bikin aku nggak gampang nyerah",
+  "karena kamu itu candu yang manis",
+  "karena kamu selalu punya efek besar buat hati aku",
+  "karena kamu bikin aku percaya kalau cinta bisa sesederhana ini",
+  "karena kamu punya cara hadir yang nggak pernah biasa",
+  "karena kamu bikin aku pengen lebih baik",
+  "karena kamu itu paket lengkap menurut aku",
+  "karena kamu selalu punya sisi yang bikin aku kagum",
+  "karena kamu itu tempat nyaman yang nggak gampang ditemuin",
+  "karena kamu bikin aku ngerasa hidup lebih ringan",
+  "karena kamu tuh bikin semuanya terasa lebih hangat",
+  "karena kamu bisa bikin aku diam-diam senyum",
+  "karena kamu punya cara bikin aku luluh tanpa banyak usaha",
+  "karena kamu selalu jadi orang yang pengen aku peluk",
+  "karena kamu tuh manis walau sok cuek",
+  "karena kamu punya cara bikin aku jatuh hati berkali-kali",
+  "karena kamu bikin aku merasa punya seseorang",
+  "karena kamu itu salah satu hal terbaik yang pernah datang",
+  "karena kamu bikin aku betah ngobrol lama",
+  "karena kamu punya energi yang bikin aku tenang",
+  "karena kamu itu tempat paling nyaman setelah hari yang capek",
+  "karena kamu selalu jadi nama yang bikin aku senyum",
+  "karena kamu bikin aku ngerasa dipahami",
+  "karena kamu punya sisi random yang aku suka",
+  "karena kamu tuh orang yang selalu pengen aku pilih",
+  "karena kamu bikin aku ngerasa beruntung",
+  "karena kamu itu alasan aku sering senyum ke layar",
+  "karena kamu selalu berhasil jadi bagian penting dari hari aku",
+  "karena kamu bikin aku ngerasa punya rumah di seseorang",
+  "karena kamu itu orang yang pengen aku banggakan",
+  "karena kamu punya cara mencintai yang aku hargai",
+  "karena kamu bikin aku percaya kalau rasa ini layak dijaga",
+  "karena kamu selalu punya tempat aman di hati aku",
+  "karena kamu itu orang yang pengen terus aku temuin",
+  "karena kamu bikin aku ngerasa dicariin",
+  "karena kamu adalah versi paling aku syukuri dari sebuah kebetulan",
+  "karena kamu ya... kamu, dan itu udah cukup buat aku sayang"
+];
+    function resetFadeAnimations(page) {
+      const fadeEls = page.querySelectorAll('.fade-text');
+      fadeEls.forEach(el => {
+        el.style.animation = 'none';
+        el.offsetHeight;
+        el.style.animation = '';
+      });
+    }
+
     function showPage(pageNumber) {
       document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-      document.getElementById('page' + pageNumber).classList.add('active');
+      const currentPage = document.getElementById('page' + pageNumber);
+      currentPage.classList.add('active');
+
+      resetFadeAnimations(currentPage);
+
+      const glow = document.getElementById('page7Glow');
+
+      if (pageNumber === 7) {
+        glow.classList.add('active');
+      } else {
+        glow.classList.remove('active');
+      }
 
       if (pageNumber === 7 && !rainStarted) {
         startEmojiRain();
         rainStarted = true;
       }
+
+      if (pageNumber === 8) {
+        generateReasons();
+      }
     }
 
-    function nextPage(pageNumber) {
-      showPage(pageNumber);
-    }
-
+ function nextPage(pageNumber) {
+  if (!document.getElementById('page' + pageNumber)) return;
+  showPage(pageNumber);
+}
     function movePin(input, index) {
       input.value = input.value.replace(/[^0-9]/g, '');
       const pins = document.querySelectorAll('.pin-circle');
@@ -353,10 +800,13 @@
       }
     }
 
+    function playMusic() {
+      document.getElementById('bgMusic').play().catch(() => {});
+    }
+
     function checkPin() {
       const pins = document.querySelectorAll('.pin-circle');
       const pinError = document.getElementById('pinError');
-      const bgMusic = document.getElementById('bgMusic');
       let enteredPin = '';
 
       pins.forEach(pin => enteredPin += pin.value.trim());
@@ -374,14 +824,17 @@
       if (enteredPin === correctPin) {
         pinError.textContent = '';
         showPage(1);
-
-        bgMusic.play().catch(() => {
-          console.log("Browser butuh interaksi user dulu buat play audio.");
-        });
-
+        playMusic();
         launchConfetti();
       } else {
         pinError.textContent = 'PIN salah 😠 coba inget-inget lagi';
+
+        const container = document.querySelector('.container');
+        container.classList.add('shake');
+
+        setTimeout(() => {
+          container.classList.remove('shake');
+        }, 400);
       }
     }
 
@@ -402,7 +855,7 @@
         setTimeout(() => {
           emoji.remove();
         }, 8000);
-      }, 250);
+      }, 260);
     }
 
     function launchConfetti() {
@@ -421,6 +874,119 @@
       }
     }
 
+function startCountdown() {
+  const birthdayDay = 8;
+  const birthdayMonth = 3; // April = 3 (ingat bulan mulai dari 0)
+
+  const countdownEl = document.getElementById('countdownTimer');
+
+  function updateCountdown() {
+    const now = new Date();
+
+    // CEK: kalau hari ini ulang tahun
+    if (
+      now.getDate() === birthdayDay &&
+      now.getMonth() === birthdayMonth
+    ) {
+      countdownEl.innerHTML = "Hari ini hari kamu 🎉💙 <br>dan aku harap kamu bahagia banget hari ini 🥺";
+      return;
+    }
+
+    // kalau bukan hari ini → hitung ke tahun berikutnya
+    let nextBirthday = new Date(
+      now.getFullYear(),
+      birthdayMonth,
+      birthdayDay,
+      0, 0, 0
+    );
+
+    if (now > nextBirthday) {
+      nextBirthday.setFullYear(now.getFullYear() + 1);
+    }
+
+    const diff = nextBirthday - now;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    countdownEl.innerHTML =
+      `${days} hari ${hours} jam ${minutes} menit ${seconds} detik`;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+}
+
+    function showPopup(text) {
+      const popup = document.getElementById('popupKiss');
+      popup.innerText = text;
+      popup.classList.add('show');
+
+      setTimeout(() => {
+        popup.classList.remove('show');
+      }, 2000);
+    }
+
+    function hugMe() {
+      const hugText = document.getElementById('hugText');
+      hugText.style.display = 'block';
+      showPopup("🤗 Kamu dipeluk virtual sekarang!");
+      launchMiniHearts();
+    }
+
+    function kissMe() {
+      showPopup("💋 Muachhhh! kamu makin disayang 😜💙");
+      launchMiniHearts();
+    }
+
+    function launchMiniHearts() {
+      const container = document.getElementById('emojiRainContainer');
+
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('rain-emoji');
+        heart.innerText = ['💙','🩵','🤍','🥺','🤗','💋'][Math.floor(Math.random() * 6)];
+        heart.style.left = (40 + Math.random() * 20) + 'vw';
+        heart.style.top = (55 + Math.random() * 10) + 'vh';
+        heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        heart.style.fontSize = (Math.random() * 10 + 22) + 'px';
+
+        container.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+      }
+    }
+
+    function shuffleArray(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function generateReasons() {
+  const box = document.getElementById('reasonsBox');
+  box.innerHTML = "";
+
+  const shuffled = shuffleArray(reasons);
+
+  shuffled.forEach((reason, index) => {
+    const card = document.createElement('div');
+    card.className = "reason-card";
+
+    card.innerHTML = `
+      <div class="reason-number">Alasan ${index + 1}</div>
+      <div class="reason-text">${reason}</div>
+    `;
+
+    box.appendChild(card);
+  });
+}
+
     document.querySelectorAll('.pin-circle').forEach((input, index, inputs) => {
       input.addEventListener('keydown', function(event) {
         if (event.key === 'Backspace' && !input.value && index > 0) {
@@ -434,7 +1000,59 @@
 
     window.onload = function () {
       document.querySelector('.pin-circle').focus();
+      startCountdown();
+
+      setTimeout(() => {
+        document.getElementById('loadingScreen').classList.add('hide');
+      }, 2200);
     };
+
+    /* =========================
+       BACKGROUND BINTANG PREMIUM
+    ========================== */
+    const canvas = document.getElementById('starsCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    let stars = [];
+
+    for (let i = 0; i < 100; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2 + 0.5,
+        speed: Math.random() * 0.4 + 0.15,
+        opacity: Math.random() * 0.5 + 0.3
+      });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      stars.forEach(star => {
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawStars);
+    }
+
+    drawStars();
   </script>
 </body>
 </html>
