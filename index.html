@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Sayang ❤️</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #89c2ff, #b7dcff, #dceeff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 25px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page {
+      display: none;
+      padding: 45px 30px;
+      text-align: center;
+      min-height: 580px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: #2563eb;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #2563eb;
+    }
+
+    p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+
+    .emoji {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1rem;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 10px 5px 0;
+      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.25);
+    }
+
+    button:hover {
+      background: #2563eb;
+      transform: translateY(-2px);
+    }
+
+    .small {
+      font-size: 0.95rem;
+      color: #777;
+      margin-top: 20px;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 1.4rem;
+      animation: float 6s infinite ease-in-out;
+      opacity: 0.4;
+    }
+
+    .heart:nth-child(1) { top: 20px; left: 25px; }
+    .heart:nth-child(2) { top: 50px; right: 30px; }
+    .heart:nth-child(3) { bottom: 40px; left: 35px; }
+    .heart:nth-child(4) { bottom: 30px; right: 35px; }
+
+    input {
+      outline: none;
+    }
+
+    .pin-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .pin-circle {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      border: 2px solid #93c5fd;
+      text-align: center;
+      font-size: 1.4rem;
+      background: #eff6ff;
+      color: #1e3a8a;
+      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.15);
+    }
+
+    .pin-circle:focus {
+      border-color: #2563eb;
+      transform: scale(1.05);
+    }
+
+    .error {
+      color: #d62828;
+      font-size: 0.95rem;
+      min-height: 20px;
+      margin-bottom: 10px;
+    }
+
+    .photo-box {
+      width: 100%;
+      max-width: 320px;
+      height: 380px;
+      margin: 0 auto 20px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      background: #dbeafe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #93c5fd;
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #emojiRainContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 999;
+    }
+
+    .rain-emoji {
+      position: absolute;
+      top: -50px;
+      font-size: 28px;
+      animation: fall linear forwards;
+      opacity: 0.9;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.8;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LAGU -->
+  <audio id="bgMusic" loop>
+    <source src="lagu.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="container">
+    <div class="heart">❤️</div>
+    <div class="heart">💗</div>
+    <div class="heart">💕</div>
+    <div class="heart">💖</div>
+
+    <section class="page active" id="page0">
+      <div class="emoji">🔐</div>
+      <h1>Private Birthday Access</h1>
+      <p>
+        Website ini cuma buat cowo paling spesial 😜<br>
+        Jadi... masukin dulu PIN rahasianya yaa.
+      </p>
+
+      <div class="pin-wrapper">
+        <input type="password" maxlength="1" class="pin-circle" oninput="movePin(this, 0)" />
+        <input type="password" maxlength="1" class="pin-circle" oninput="movePin(this, 1)" />
+        <input type="password" maxlength="1" class="pin-circle" oninput="movePin(this, 2)" />
+        <input type="password" maxlength="1" class="pin-circle" oninput="movePin(this, 3)" />
+        <input type="password" maxlength="1" class="pin-circle" oninput="movePin(this, 4)" />
+        <input type="password" maxlength="1" class="pin-circle" oninput="movePin(this, 5)" />
+      </div>
+
+      <div class="error" id="pinError"></div>
+      <button onclick="checkPin()">Buka hadiah 🎁</button>
+      <p class="small">Note : Tanggal jadian kita! 💙</p>
+    </section>
+
+    <section class="page" id="page1">
+      <div class="emoji">🎂</div>
+      <h1>Happy Birthday Sayangkuuu</h1>
+      <p>
+        Hari ini bukan hari biasa...<br>
+        karena hari ini, manusia paling ganteng, paling nyebelin, paling lucu,
+        dan paling aku sayang di dunia lahir 😌❤️
+      </p>
+      <button onclick="nextPage(2)">Lanjut dong 👉</button>
+    </section>
+
+    <section class="page" id="page2">
+      <div class="emoji">😎</div>
+      <h2>Selamat ulang tahun yaa ganteng</h2>
+      <p>
+        Semoga di umur kamu yang sekarang, kamu makin kuat, makin bahagia,
+        makin sukses, dan tentunya... makin cinta sama aku 😏
+      </p>
+      <button onclick="nextPage(3)">Masih ada nih 😋</button>
+    </section>
+
+    <section class="page" id="page3">
+      <div class="emoji">🤏</div>
+      <h2>Pesan penting banget</h2>
+      <p>
+        Makasih ya udah sabar banget ngadepin aku yang kadang random, kadang manja,
+        kadang ngeselin, kadang bikin pusing... tapi tetep lucu 😌
+      </p>
+      <button onclick="nextPage(4)">Oke lanjut 😆</button>
+    </section>
+
+    <section class="page" id="page4">
+      <div class="emoji">🚨</div>
+      <h2>Peringatan ulang tahun</h2>
+      <p>
+        Di umur yang baru ini, kamu resmi diwajibkan untuk:
+        <br><br>
+        1. Nggak boleh sakit 😡<br>
+        2. Nabung buat jajanin aku tiap hari 😝<br>
+        3. Nggak boleh ninggalin aku 😤<br>
+        4. Wajib sayang aku terus 💋
+      </p>
+      <button onclick="nextPage(5)">Saya setuju 😌</button>
+    </section>
+
+    <section class="page" id="page5">
+      <div class="emoji">😂</div>
+      <h2>Fakta menarik</h2>
+      <p>
+        Dari sekian banyak orang di dunia,
+        aku masih heran kenapa yang aku suka malah kamu...<br><br>
+        tapi gapapa juga siii, terlanjur sayang juga 😳🤍
+      </p>
+      <button onclick="nextPage(6)">Awww 👀</button>
+    </section>
+
+    <section class="page" id="page6">
+      <div class="emoji">💌</div>
+      <h2>Yang paling penting...</h2>
+      <p>
+        Semoga semua doa baik kamu dikabulkan satu-satu.
+        Semoga jalan kamu dipermudah.
+        Semoga hati kamu selalu dijaga.
+        Dan semoga aku akan selalu jadi bagian dari banyak bahagia kamu.
+      </p>
+      <button onclick="nextPage(7)">Terakhir nih 🥺</button>
+    </section>
+
+    <section class="page" id="page7">
+      <div class="emoji">📸</div>
+      <h2>Halaman spesial buat kamu</h2>
+      <div class="photo-box">
+        <img src="fotokita.jpeg" alt="Foto Kita" />
+      </div>
+      <p>
+        Selamat ulang tahun ya, sayang.<br><br>
+        Aku cuma mau kamu tahu...<br>
+        kamu itu berharga, kamu itu dicintai, dan kamu itu rumah buat aku.
+      </p>
+      <p><strong>I love you more than words can explain 💖</strong></p>
+      <p class="small">— dari aku, yang selalu milih kamu 🤍</p>
+    </section>
+  </div>
+
+  <!-- HUJAN EMOJI -->
+  <div id="emojiRainContainer"></div>
+
+  <script>
+    const correctPin = "260326";
+    let rainStarted = false;
+
+    function showPage(pageNumber) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      document.getElementById('page' + pageNumber).classList.add('active');
+
+      if (pageNumber === 7 && !rainStarted) {
+        startEmojiRain();
+        rainStarted = true;
+      }
+    }
+
+    function nextPage(pageNumber) {
+      showPage(pageNumber);
+    }
+
+    function movePin(input, index) {
+      input.value = input.value.replace(/[^0-9]/g, '');
+      const pins = document.querySelectorAll('.pin-circle');
+      if (input.value && index < pins.length - 1) {
+        pins[index + 1].focus();
+      }
+    }
+
+    function checkPin() {
+      const pins = document.querySelectorAll('.pin-circle');
+      const pinError = document.getElementById('pinError');
+      const bgMusic = document.getElementById('bgMusic');
+      let enteredPin = '';
+
+      pins.forEach(pin => enteredPin += pin.value.trim());
+
+      if (enteredPin.length < 6) {
+        pinError.textContent = 'PIN harus diisi 6 digit ya 😤';
+        return;
+      }
+
+      if (!/^\d{6}$/.test(enteredPin)) {
+        pinError.textContent = 'PIN cuma boleh angka 😠';
+        return;
+      }
+
+      if (enteredPin === correctPin) {
+        pinError.textContent = '';
+        showPage(1);
+
+        bgMusic.play().catch(() => {
+          console.log("Browser butuh interaksi user dulu buat play audio.");
+        });
+
+        launchConfetti();
+      } else {
+        pinError.textContent = 'PIN salah 😠 coba inget-inget lagi';
+      }
+    }
+
+    function startEmojiRain() {
+      const container = document.getElementById('emojiRainContainer');
+      const emojis = ['💙', '🩵', '🤍', '🎂', '🎉', '🥳', '✨', '💌'];
+
+      setInterval(() => {
+        const emoji = document.createElement('div');
+        emoji.classList.add('rain-emoji');
+        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = Math.random() * 100 + 'vw';
+        emoji.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        emoji.style.fontSize = (Math.random() * 18 + 20) + 'px';
+
+        container.appendChild(emoji);
+
+        setTimeout(() => {
+          emoji.remove();
+        }, 8000);
+      }, 250);
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('rain-emoji');
+        confetti.innerText = ['🎉', '✨', '💙', '🩵'][Math.floor(Math.random() * 4)];
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = Math.random() * 30 + 'vh';
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        confetti.style.fontSize = (Math.random() * 12 + 20) + 'px';
+
+        document.getElementById('emojiRainContainer').appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 4000);
+      }
+    }
+
+    document.querySelectorAll('.pin-circle').forEach((input, index, inputs) => {
+      input.addEventListener('keydown', function(event) {
+        if (event.key === 'Backspace' && !input.value && index > 0) {
+          inputs[index - 1].focus();
+        }
+        if (event.key === 'Enter') {
+          checkPin();
+        }
+      });
+    });
+
+    window.onload = function () {
+      document.querySelector('.pin-circle').focus();
+    };
+  </script>
+</body>
+</html>
